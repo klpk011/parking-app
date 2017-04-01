@@ -1,0 +1,19 @@
+<h1>全栈营停车费用计算</h1>
+
+<% if @parking.amount.present? # 已经结束，显示停车费 %>
+  <p>计费方式 <%= @parking.parking_type %></p>
+  <p>从 <%= @parking.start_at %> 至 <%= @parking.end_at %><p>
+  <p>共 <%= @parking.duration %> 分钟</p>
+  <p>总计 <%= number_to_currency(@parking.amount.to_f / 100, :unit => "¥") %> 元</p>
+
+  <p><%= link_to "继续停车", new_parking_path %></p>
+
+<% else # 还没结束，显示结束按钮 %>
+
+  <%= form_for @parking do |f| %>
+
+    <p><%= f.submit "结束计费" %></p>
+
+  <% end %>
+
+<% end %>
